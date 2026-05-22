@@ -29,7 +29,7 @@ export default function HomePage() {
   const { isDark, toggleTheme } = useTheme();
   return (
     <main className="mx-auto my-10 min-h-screen w-full max-w-4xl px-4 sm:px-6">
-  <div className="rounded-3xl bg-white p-4 sm:p-6 lg:p-8 shadow-2xl ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">
+      <div className="rounded-3xl bg-white p-4 shadow-2xl ring-1 ring-gray-200 sm:p-6 lg:p-8 dark:bg-gray-800 dark:ring-gray-700">
         {/* Header */}
         <header className="mb-8 flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500 shadow-sm">
@@ -45,7 +45,7 @@ export default function HomePage() {
             <ModeButton onClick={toggleTheme} isDark={isDark} />
           </div>
         </header>
-        
+
         {/* Add todo */}
         <section aria-label="Agregar tarea" className="mb-6">
           <TodoForm onAdd={addTodo} />

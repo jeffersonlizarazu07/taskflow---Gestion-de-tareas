@@ -71,7 +71,7 @@ export function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
           <div className="flex items-center justify-between gap-2">
             <p
               className={cn(
-                'text-sm leading-snug font-medium transition-all duration-200 wrap-break-words min-w-0',
+                'wrap-break-words min-w-0 text-sm leading-snug font-medium transition-all duration-200',
                 todo.completed
                   ? 'text-gray-400 line-through dark:text-gray-500'
                   : 'text-gray-900 dark:text-gray-100'

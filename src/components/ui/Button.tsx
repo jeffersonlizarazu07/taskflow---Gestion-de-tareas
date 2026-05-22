@@ -9,13 +9,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary:
-          'bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700 shadow-sm',
-        secondary:
-          'bg-surface-100 text-surface-800 hover:bg-surface-200 border border-surface-200',
+        primary: 'bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700 shadow-sm',
+        secondary: 'bg-surface-100 text-surface-800 hover:bg-surface-200 border border-surface-200',
         ghost: 'text-surface-800 hover:bg-surface-100',
-        destructive:
-          'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200',
+        destructive: 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200',
       },
       size: {
         sm: 'h-8 px-3 text-sm',
@@ -33,16 +30,10 @@ const buttonVariants = cva(
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof buttonVariants>;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants>;
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function Button({ className, variant, size, ...props }: ButtonProps) {
-  return (
-    <button
-      className={cn(buttonVariants({ variant, size }), className)}
-      {...props}
-    />
-  );
+  return <button className={cn(buttonVariants({ variant, size }), className)} {...props} />;
 }

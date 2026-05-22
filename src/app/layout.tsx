@@ -17,15 +17,11 @@ export const metadata: Metadata = {
   description: 'Aplicación de gestión de tareas construida con Next.js',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-gray-800 from-surface-400 to-surface-50 font-sans antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} from-surface-400 to-surface-50 min-h-screen bg-gray-800 font-sans antialiased`}
       >
         {children}
       </body>

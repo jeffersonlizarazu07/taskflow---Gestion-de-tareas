@@ -16,29 +16,28 @@ import { useTodosFilter } from './useTodosFilter';
 // This ensures UI reflects user actions instantly (optimistic update).
 
 export function useTodos() {
-    const { allTodos, currentPage, isLoading, error, goToPage, setAllTodos } =
-        useTodosFetch();
+  const { allTodos, currentPage, isLoading, error, goToPage, setAllTodos } = useTodosFetch();
 
-    const { addTodo, toggleTodo, removeTodo } = useTodosMutations({ setAllTodos });
+  const { addTodo, toggleTodo, removeTodo } = useTodosMutations({ setAllTodos });
 
-    // When a filter is active, paginate over filteredTodos instead of allTodos.
-    const { filteredTodos, activeFilter, setFilter } = useTodosFilter(allTodos);
+  // When a filter is active, paginate over filteredTodos instead of allTodos.
+  const { filteredTodos, activeFilter, setFilter } = useTodosFilter(allTodos);
 
-    // Always paginate over filteredTodos — when filter is 'all', filteredTodos
-    // equals allTodos, so is identical to before.
-    const todos = getPageSlice(filteredTodos, currentPage);
-    const pagination = buildPagination(filteredTodos.length, currentPage);
+  // Always paginate over filteredTodos — when filter is 'all', filteredTodos
+  // equals allTodos, so is identical to before.
+  const todos = getPageSlice(filteredTodos, currentPage);
+  const pagination = buildPagination(filteredTodos.length, currentPage);
 
-    return {
-        todos,
-        pagination,
-        activeFilter,
-        isLoading,
-        error,
-        loadPage: goToPage,
-        addTodo,
-        toggleTodo,
-        removeTodo,
-        setFilter,
-    };
+  return {
+    todos,
+    pagination,
+    activeFilter,
+    isLoading,
+    error,
+    loadPage: goToPage,
+    addTodo,
+    toggleTodo,
+    removeTodo,
+    setFilter,
+  };
 }

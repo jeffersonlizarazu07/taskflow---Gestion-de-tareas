@@ -64,9 +64,7 @@ export function useTodosMutations({ setAllTodos }: UseTodosMutationsParams) {
 
       // 1. Optimistically update the UI
       setAllTodos((prev) =>
-        prev.map((t) =>
-          t.id === todo.id ? { ...t, completed: optimisticCompleted } : t
-        )
+        prev.map((t) => (t.id === todo.id ? { ...t, completed: optimisticCompleted } : t))
       );
 
       // Local todos have no real id — skip the API call entirely.
@@ -77,9 +75,7 @@ export function useTodosMutations({ setAllTodos }: UseTodosMutationsParams) {
       } catch {
         // 2. Roll back on API failure
         setAllTodos((prev) =>
-          prev.map((t) =>
-            t.id === todo.id ? { ...t, completed: todo.completed } : t
-          )
+          prev.map((t) => (t.id === todo.id ? { ...t, completed: todo.completed } : t))
         );
       }
     },

@@ -7,19 +7,15 @@ interface SkeletonProps {
 }
 
 function Skeleton({ className }: SkeletonProps) {
-  return (
-    <div
-      className={cn('animate-pulse rounded-md bg-surface-100', className)}
-    />
-  );
+  return <div className={cn('bg-surface-100 animate-pulse rounded-md', className)} />;
 }
 
 // ─── Todo Item Skeleton ───────────────────────────────────────────────────────
 
 function TodoItemSkeleton() {
   return (
-    <div className="flex items-center gap-4 rounded-xl border border-surface-100 bg-surface-0 p-4">
-      <Skeleton className="h-5 w-5 rounded-md shrink-0" />
+    <div className="border-surface-100 bg-surface-0 flex items-center gap-4 rounded-xl border p-4">
+      <Skeleton className="h-5 w-5 shrink-0 rounded-md" />
       <div className="flex-1 space-y-2">
         <Skeleton className="h-4 w-3/4" />
         <Skeleton className="h-3 w-1/4" />

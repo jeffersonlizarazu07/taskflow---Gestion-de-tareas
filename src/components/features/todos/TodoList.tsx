@@ -19,14 +19,7 @@ interface TodoListProps {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export function TodoList({
-  todos,
-  isLoading,
-  error,
-  onToggle,
-  onDelete,
-  onRetry,
-}: TodoListProps) {
+export function TodoList({ todos, isLoading, error, onToggle, onDelete, onRetry }: TodoListProps) {
   if (isLoading) return <TodoListSkeleton />;
 
   if (error) return <ErrorMessage message={error} onRetry={onRetry} />;

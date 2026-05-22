@@ -14,12 +14,12 @@ interface EmptyStateProps {
 export function EmptyState({
   title,
   description,
-  icon = <ClipboardList className="h-10 w-10 text-surface-200" />,
+  icon = <ClipboardList className="text-surface-200 h-10 w-10" />,
 }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 py-16 text-center animate-fade-in">
+    <div className="animate-fade-in flex flex-col items-center justify-center gap-3 py-16 text-center">
       {icon}
-      <p className="text-base font-semibold text-surface-800">{title}</p>
+      <p className="text-surface-800 text-base font-semibold">{title}</p>
       <p className="text-sm text-gray-400">{description}</p>
     </div>
   );

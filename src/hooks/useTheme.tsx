@@ -7,7 +7,7 @@ export const useTheme = () => {
     document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
 
-  const toggleTheme = () => setIsDark(prev => !prev);
+  const toggleTheme = () => setIsDark((prev) => !prev);
 
   return { isDark, toggleTheme };
 };

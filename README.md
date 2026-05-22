@@ -1,171 +1,312 @@
 # TaskFlow
 
-Aplicación de gestión de tareas construida como prueba técnica para Orquestia. Consume la API pública de [DummyJSON](https://dummyjson.com/docs/todos) e implementa un CRUD completo gestionado en estado local.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/jeffersonlizarazu07/taskflow---Gestion-de-tareas)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/jeffersonlizarazu07/taskflow---Gestion-de-tareas/pulls)
 
----
+A professional task management application built as a technical demonstration. Features full CRUD operations, optimistic updates, local pagination, and dark/light theme support with a clean, responsive interface built with Next.js 15 and React 19.
 
-## Instalación y ejecución local
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Demo](#demo)
+- [Technology Stack](#technology-stack)
+- [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [Project Structure](#project-structure)
+- [Technical Decisions](#technical-decisions)
+- [Code Quality](#code-quality)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
+
+## Overview
+
+TaskFlow is a modern task management application designed to showcase best practices in frontend development. Built with Next.js 15 (App Router), React 19, and TypeScript, it implements a complete task management system with local state management, optimistic UI updates, and a responsive design system.
+
+The application consumes the [DummyJSON](https://dummyjson.com/docs/todos) public API for initial data loading while managing all CRUD operations locally to ensure perfect consistency between UI and state.
+
+## Features
+
+✨ **Core Functionality**
+
+- Complete CRUD operations (Create, Read, Update, Delete)
+- Optimistic UI updates for immediate feedback
+- Local pagination and filtering
+- Task completion toggling
+- Local task identification (isLocal flag)
+
+🎨 **User Experience**
+
+- Dark/Light theme toggle with system preference detection
+- Responsive design for mobile and desktop
+- Smooth animations and transitions
+- Accessible components (ARIA labels, keyboard navigation)
+- Loading states and skeleton loaders
+- Confirmation dialogs with blur backdrop
+- Visual feedback for all operations (success/error messages)
+
+🛠️ **Developer Experience**
+
+- TypeScript 5 with strict type checking
+- ESLint and Prettier for code quality
+- Modular architecture with separation of concerns
+- Custom hooks following Single Responsibility Principle
+- Detailed technical documentation
+- Conventional commit history
+
+## Demo
+
+![TaskFlow Dashboard](https://via.placeholder.com/800x450/0d1117/ffffff?text=TaskFlow+Dashboard+Screenshot)
+
+_Live demo available at: [https://pt-taskflow-jefferson-lizarazu.vercel.app](https://pt-taskflow-jefferson-lizarazu.vercel.app)_
+
+## Technology Stack
+
+| Category          | Technology               | Version | Purpose                         |
+| ----------------- | ------------------------ | ------- | ------------------------------- |
+| **Framework**     | Next.js                  | 15.1.9  | React framework with App Router |
+| **Library**       | React                    | 19.0.0  | UI library                      |
+| **Language**      | TypeScript               | 5.0     | Static typing                   |
+| **Styling**       | Tailwind CSS             | 4.0     | Utility-first CSS framework     |
+| **Styling Utils** | class-variance-authority | 0.7.1   | Variant management              |
+| **Styling Utils** | tailwind-merge + clsx    | -       | Safe class merging              |
+| **Icons**         | lucide-react             | 0.577.0 | Consistent icon set             |
+| **Quality**       | ESLint 9 + Prettier 3    | -       | Code formatting and linting     |
+| **Dev**           | pnpm                     | 11.1.3  | Fast package manager            |
+
+## Installation
+
+### Prerequisites
+
+- Node.js >= 20.x
+- pnpm >= 8.x (recommended) or npm/yarn
+
+### Quick Start
 
 ```bash
-# 1. Clonar el repositorio
-git clone https://github.com/TU_USUARIO/pt-taskflow-jefferson-lizarazu.git
-cd pt-taskflow-jefferson-lizarazu
+# 1. Clone the repository
+git clone https://github.com/jeffersonlizarazu07/taskflow---Gestion-de-tareas.git
+cd taskflow---Gestion-de-tareas
 
-# 2. Instalar dependencias
+# 2. Install dependencies
 pnpm install
 
-# 3. Configurar variables de entorno
+# 3. Configure environment (optional)
 cp .env.example .env.local
+# Edit .env.local if needed (defaults work for DummyJSON API)
 
-# 4. Correr en desarrollo
+# 4. Start development server
 pnpm dev
 ```
 
-La aplicación estará disponible en [http://localhost:3000](http://localhost:3000).
+### Alternative Package Managers
 
-> El proyecto corre con `pnpm install` y `pnpm dev` sin pasos adicionales.
+```bash
+# Using npm
+npm install
+npm run dev
 
----
+# Using yarn
+yarn install
+yarn dev
+```
 
-## Variables de entorno
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-| Variable | Descripción | Valor por defecto |
-|---|---|---|
-| `NEXT_PUBLIC_API_BASE_URL` | URL base de la API de DummyJSON | `https://dummyjson.com` |
+## Environment Variables
 
----
+| Variable                   | Description                      | Default                 | Required |
+| -------------------------- | -------------------------------- | ----------------------- | -------- |
+| `NEXT_PUBLIC_API_BASE_URL` | Base URL for DummyJSON API       | `https://dummyjson.com` | No       |
+| `NEXT_PUBLIC_APP_NAME`     | Application name displayed in UI | `TaskFlow`              | No       |
 
-## Stack
+Create a `.env.local` file in the root directory to override defaults:
 
-| Tecnología | Versión | Motivo |
-|---|---|---|
-| Next.js | 15.1.0 | Framework base requerido. App Router para layouts y Server Components. |
-| React | 19 | Librería de UI base. |
-| TypeScript | 5 | Tipado estático para mayor seguridad y mantenibilidad. |
-| Tailwind CSS | 4 | Utility-first CSS, configurado con design tokens propios via `@theme`. |
-| class-variance-authority | 0.7 | Gestión tipada de variantes de componentes UI. |
-| tailwind-merge + clsx | — | Merge seguro de clases de Tailwind sin conflictos. |
-| lucide-react | 0.468 | Iconos consistentes y accesibles. |
-| ESLint + Prettier | — | Calidad y formato de código consistente. Sin errores en `pnpm build`. |
+```env
+NEXT_PUBLIC_API_BASE_URL=https://dummyjson.com
+NEXT_PUBLIC_APP_NAME=TaskFlow
+```
 
----
-
-## Estructura del proyecto
+## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx           # Layout raíz con fuentes y metadata
-│   ├── page.tsx             # Página principal — solo composición, sin lógica
-│   └── globals.css          # Design tokens (@theme), animaciones y base styles
+│   ├── layout.tsx         # Root layout with metadata and providers
+│   ├── page.tsx           # Home page - pure component composition
+│   └── globals.css        # CSS variables, design tokens, base styles
 ├── components/
-│   ├── ui/                  # Componentes reutilizables genéricos
-│   │   ├── Button.tsx       # Botón con variantes CVA: primary/secondary/ghost/destructive
-│   │   ├── ConfirmDialog.tsx# Modal de confirmación via React Portal, sin dependencias
-│   │   ├── EmptyState.tsx   # Estado vacío reutilizable
-│   │   ├── ErrorMessage.tsx # Error con botón de reintentar
-│   │   └── Skeleton.tsx     # Skeleton loader para el listado
+│   ├── ui/                # Reusable UI primitives
+│   │   ├── Button.tsx     # CVA-based button with variants
+│   │   ├── ConfirmDialog.tsx # Accessible modal (Portal-based)
+│   │   ├── EmptyState.tsx # Reusable empty state component
+│   │   ├── ErrorMessage.tsx # Error display with retry action
+│   │   ├── ModeButton.tsx # Theme toggle button
+│   │   └── Skeleton.tsx   # Loading skeleton component
 │   └── features/
-│       └── todos/           # Componentes específicos del dominio de tareas
-│           ├── TodoFilters.tsx     # Tabs de filtro: Todas / Completadas / Pendientes
-│           ├── TodoForm.tsx        # Input para crear tarea con feedback de éxito/error
-│           ├── TodoItem.tsx        # Ítem individual con toggle switch y botón eliminar
-│           ├── TodoList.tsx        # Orquesta skeleton / error / vacío / lista
-│           └── TodoPagination.tsx  # Controles de paginación anterior/siguiente
+│       └── todos/         # Task domain components
+│           ├── TodoFilters.tsx   # Filter tabs (All/Active/Completed)
+│           ├── TodoForm.tsx      # Task creation form with validation
+│           ├── TodoItem.tsx      # Individual task with toggle/delete
+│           ├── TodoList.tsx      # List orchestrator (loading/error/empty/data)
+│           └── TodoPagination.tsx# Pagination controls
 ├── config/
-│   └── env.ts               # Validación de variables de entorno en build time
+│   └── env.ts             # Environment validation at build time
 ├── constants/
-│   └── todos.ts             # TODOS_PER_PAGE, DEFAULT_USER_ID
+│   └── todos.ts           # Application constants (TODOS_PER_PAGE)
 ├── hooks/
-│   ├── useTodos.ts          # Orquestador público — único punto de entrada para la UI
-│   ├── useTodosFetch.ts     # Responsabilidad única: carga inicial y paginación local
-│   ├── useTodosMutations.ts # Responsabilidad única: crear, toggle, eliminar
-│   └── useTodosFilter.ts    # Responsabilidad única: filtrado local por estado
+│   ├── useTodos.ts        # Public hook - UI entry point
+│   ├── useTodosFetch.ts   # Data fetching and local pagination
+│   ├── useTodosMutations.ts # CRUD operations with optimistic updates
+│   └── useTodosFilter.ts  # Local filtering logic
 ├── lib/
-│   └── utils.ts             # Helper cn() para merge de clases Tailwind
+│   └── utils.ts           # Utility functions (cn() for class merging)
 ├── services/
-│   └── todoService.ts       # Capa de acceso a la API (fetchAllTodos, createTodo, etc.)
+│   └── todoService.ts     # API service layer (fetchAllTodos, etc.)
 └── types/
-    └── todo.ts              # Tipos TypeScript del dominio
+    └── todo.ts            # TypeScript domain types
 ```
+
+## Technical Decisions
+
+### Data Loading Strategy
+
+Instead of paginated API requests, the application loads all todos once (`GET /todos?limit=0`) and manages pagination/filtering locally. This approach was chosen because:
+
+- The DummyJSON API doesn't persist write operations
+- API-based pagination would cause inconsistencies between local changes and server state
+- Local management guarantees perfect UI-state synchronization
+- Initial load of ~250 records is performant for modern browsers
+
+### State Management
+
+Selected `useState` in custom hooks over external libraries (Zustand, Redux) because:
+
+- Single-page application with one data domain
+- No cross-context state sharing requirements
+- Simplicity and zero additional dependencies
+- Sufficient for application scale (would reconsider for multi-page apps)
+
+### Hook Architecture
+
+Applied Single Responsibility Principle by splitting concerns:
+| Hook | Responsibility |
+|------|----------------|
+| `useTodosFetch` | Initial data load, local pagination, `allTodos` exposure |
+| `useTodosMutations` | Create/update/delete operations with optimistic updates |
+| `useTodosFilter` | Local filtering by completion state |
+| `useTodos` | Orchestrator exposing unified public API |
+
+Data flow: `allTodos → filteredTodos → getPageSlice(page)`
+
+### Optimistic Updates
+
+Implemented for `toggleTodo` operation:
+
+1. UI updates immediately without waiting for API response
+2. On API failure, automatically reverts to previous state
+3. Chosen because toggle is low-risk operation with zero perceived latency
+4. Would use post-response update for higher-risk operations (e.g., financial transactions)
+
+### Local Task Identification
+
+Addresses DummyJSON's limitation where POST /todos/add returns non-existent IDs:
+
+- Local tasks marked with `isLocal: true`
+- Temporary negative IDs generated via `-Date.now()`
+- `useTodosMutations` skips API calls for local tasks
+- UI displays "Local" badge for client-created tasks
+
+### Confirmation Dialog
+
+Built custom `ConfirmDialog` using React Portal:
+
+- Avoids external dependencies
+- Features: backdrop blur, Escape key handling, scroll locking
+- Full accessibility compliance (role, aria-modal, aria-labelledby)
+- More polished than `window.confirm()`
+
+## Code Quality
+
+- **TypeScript**: Strict mode enabled, zero `any` types in production code
+- **Linting**: ESLint 9 flat config with explicit Next.js, React, React Hooks, JSX accessibility, import, and TypeScript rules
+- **Formatting**: Automatic Tailwind class ordering via `prettier-plugin-tailwindcss`
+- **Commits**: Descriptive messages following Conventional Commits (feat/fix/chore/docs)
+- **Build**: Zero errors in `pnpm build`
+- **Accessibility**: Semantic HTML, ARIA labels, keyboard navigation support
+
+### ESLint Configuration
+
+The project uses `eslint.config.mjs` with an explicit flat configuration instead of relying on the legacy `next/core-web-vitals` preset import directly.
+
+This is intentional:
+
+- ESLint 9 uses the flat config model as the modern configuration format.
+- The config manually composes the recommended rules from Next.js, React, React Hooks, TypeScript, JSX accessibility, and import tooling.
+- Plugins are resolved from the `eslint-config-next` package context through `createRequire(...)`, which keeps resolution stable with pnpm's strict dependency layout.
+- Prettier is applied last through `eslint-config-prettier` to avoid formatting-rule conflicts.
+- Generated output and framework artifacts are ignored: `.next/**`, `out/**`, `build/**`, and `next-env.d.ts`.
+- `no-undef` is disabled for TypeScript files because TypeScript already validates symbols and type-only references more accurately than the base ESLint rule.
+
+Run the linter with:
+
+```bash
+pnpm lint
+```
+
+## Contributing
+
+We welcome contributions! Please follow these guidelines:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Commit using [Conventional Commits](https://www.conventionalcommits.org/)
+5. Push to your branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+### Development Setup
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+
+# Run linting
+pnpm lint
+
+# Format code
+pnpm format
+```
+
+### Commit Message Format
+
+```
+type(scope): description
+
+[optional body]
+
+[optional footer]
+```
+
+**Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- [DummyJSON](https://dummyjson.com) for providing the free public API
+- [Next.js](https://nextjs.org) team for the excellent React framework
+- [Tailwind CSS](https://tailwindcss.com) for the utility-first CSS approach
+- [Lucide](https://lucide.dev) for the beautiful open-source icon set
+- All contributors who have helped shape this project
 
 ---
 
-## Decisiones técnicas
-
-### Cargar todos los registros de una vez (`fetchAllTodos`)
-
-La API de DummyJSON siempre devuelve los mismos ~250 registros sin importar las operaciones de escritura, ya que no persiste los cambios. Paginar desde la API (con `limit` y `skip`) en este contexto genera inconsistencias inevitables: al crear o eliminar una tarea localmente, la página recargada desde la API devuelve los mismos datos originales ignorando el cambio local.
-
-**Solución adoptada:** se carga todo el listado en un único request al inicio (`GET /todos?limit=0`) y la paginación, el filtrado y todas las mutaciones se gestionan íntegramente en estado local. Esto garantiza consistencia perfecta entre las operaciones CRUD y la UI.
-
-### Gestión de estado: `useState` local en hooks especializados
-
-Se optó por `useState` en hooks personalizados en lugar de Zustand u otra librería por las siguientes razones:
-
-- La aplicación tiene una sola página y un único dominio de datos.
-- No hay comunicación entre contextos distintos que requiera estado global.
-- Es más simple, sin dependencias adicionales, y suficiente para la escala de esta aplicación.
-
-Zustand sería la elección correcta si la aplicación creciera con múltiples páginas compartiendo el mismo estado.
-
-### Separación de responsabilidades en hooks (Single Responsibility Principle)
-
-El hook `useTodos` fue dividido en tres hooks especializados más un orquestador:
-
-| Hook | Responsabilidad |
-|---|---|
-| `useTodosFetch` | Fetch inicial, paginación local, exposición de `allTodos` |
-| `useTodosMutations` | Crear, toggle, eliminar sobre `allTodos` |
-| `useTodosFilter` | Filtrado local por estado (completada/pendiente) |
-| `useTodos` | Orquestador — compone los tres anteriores y expone la API pública |
-
-El flujo de datos es: `allTodos → filteredTodos → getPageSlice(page)`. El filtro siempre se aplica antes de paginar, garantizando que la regla de 10 registros por página se respete en cualquier combinación de filtro y página activa.
-
-### Optimistic Update para `toggleTodo`
-
-Al marcar una tarea como completada/pendiente se eligió el patrón de **actualización optimista**:
-
-1. La UI refleja el cambio **inmediatamente** sin esperar la respuesta de la API.
-2. Si la API falla, el cambio se **revierte** automáticamente al estado anterior.
-
-**Razón:** la operación de toggle es de bajo riesgo y la latencia percibida es cero. Si el riesgo fuera mayor (por ejemplo, una operación financiera), se elegiría actualización post-respuesta.
-
-### Tareas locales vs. tareas de la API (`isLocal`)
-
-La API retorna siempre el mismo id para tareas creadas vía `POST /todos/add`, un id que no existe realmente en el servidor. Llamar a `DELETE` o `PATCH` sobre ese id falla.
-
-**Solución:** las tareas creadas localmente se identifican con `isLocal: true` y un id temporal negativo generado con `-Date.now()` (nunca colisiona con los ids positivos de la API). El hook `useTodosMutations` evalúa `isLocal` antes de cada operación y omite la llamada a la API cuando corresponde. Las tareas locales muestran un badge `local` en la UI.
-
-### Modal de confirmación sin dependencias externas
-
-En lugar de `window.confirm` (bloqueante, sin estilos) o instalar shadcn/ui, se implementó `ConfirmDialog` usando React Portal (`createPortal`) directamente sobre `document.body`. Incluye backdrop con blur, cierre con Escape, bloqueo de scroll y atributos de accesibilidad (`role="alertdialog"`, `aria-modal`, `aria-labelledby`).
-
----
-
-## Calidad de código
-
-- **ESLint** configurado con `next/core-web-vitals` + `prettier`. Sin errores en `pnpm build`.
-- **Prettier** con `prettier-plugin-tailwindcss` para orden automático de clases.
-- **TypeScript strict mode** activado. Sin `any` en el código de producción.
-- **Commits descriptivos** por funcionalidad siguiendo convención `feat/fix/chore/docs`.
-
----
-
-## Gitflow
-
-```
-main
-└── develop
-    ├── feat/project-setup
-    ├── feat/todo-list-pagination
-    ├── feat/create-todo
-    ├── feat/toggle-todo
-    ├── feat/delete-todo
-    ├── feat/filter-todos
-    └── feat/readme-and-docs
-```
-
-Cada funcionalidad se desarrolla en una rama `feat/*` que hace PR hacia `develop`. Al finalizar, `develop` hace PR hacia `main` con el tag `v1.0.0`.
-
-**Regla:** nunca se commitea directamente en `main`.
+Made with ❤️ by Jefferson Lizarazu for the Orquestia technical assessment.
