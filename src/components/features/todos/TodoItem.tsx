@@ -7,15 +7,11 @@ import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { cn } from '@/lib/utils';
 import type { Todo } from '@/types/todo';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 interface TodoItemProps {
   todo: Todo;
   onToggle: (todo: Todo) => Promise<void>;
   onDelete: (id: number, isLocal?: boolean) => Promise<boolean>;
 }
-
-// ─── Component ────────────────────────────────────────────────────────────────
 
 export function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -39,8 +35,11 @@ export function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
     <>
       <div
         className={cn(
-          'group border-surface-100 bg-surface-0 hover:border-brand-100 animate-slide-up flex items-center gap-4 rounded-xl border p-4 shadow-sm transition-all duration-200 hover:shadow-md',
-          isDeleting && 'pointer-events-none opacity-50'
+          'group animate-slide-up flex items-center gap-3 rounded-xl border p-3 shadow-sm transition-all duration-200 hover:shadow-md',
+          isDeleting && 'pointer-events-none opacity-50',
+          todo.completed
+            ? 'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50'
+            : 'border-orange-200 bg-white hover:border-orange-300 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-orange-500/50'
         )}
       >
         {/* Toggle switch */}
@@ -52,46 +51,54 @@ export function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
           onClick={handleToggle}
           disabled={isToggling}
           className={cn(
-            'focus-visible:ring-brand-500 relative h-6 w-11 shrink-0 rounded-full border-2 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:opacity-60',
+            'relative h-6 w-11 shrink-0 rounded-full border-2 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:outline-none disabled:opacity-60',
             todo.completed
-              ? 'border-brand-500 bg-brand-500'
-              : 'border-surface-200 bg-surface-100 hover:border-brand-500'
+              ? 'border-orange-500 bg-orange-500'
+              : 'border-gray-300 bg-gray-100 hover:border-orange-400 dark:border-gray-600 dark:bg-gray-700'
           )}
         >
           <span
             className={cn(
-              'absolute top-0.5 left-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-300',
-              todo.completed && 'translate-x-5'
+              'absolute top-0.5 left-0.5 h-4 w-4 rounded-full shadow-sm transition-transform duration-300',
+              todo.completed ? 'translate-x-5 bg-white' : 'bg-white dark:bg-gray-400',
+              isToggling && 'bg-white'
             )}
           />
         </button>
 
         {/* Content */}
         <div className="min-w-0 flex-1">
-          <p
-            className={cn(
-              'text-surface-800 text-sm leading-snug font-medium transition-all duration-200',
-              todo.completed && 'text-gray-400 line-through'
-            )}
-          >
-            {todo.todo}
-          </p>
-          <p className="mt-0.5 text-xs text-gray-400">
-            {todo.isLocal && (
-              <span className="bg-brand-50 text-brand-600 ml-2 rounded-full px-2 py-0.5">Tu</span>
-            )}
-          </p>
-        </div>
+          <div className="flex items-center justify-between gap-2">
+            <p
+              className={cn(
+                'text-sm leading-snug font-medium transition-all duration-200 wrap-break-words min-w-0',
+                todo.completed
+                  ? 'text-gray-400 line-through dark:text-gray-500'
+                  : 'text-gray-900 dark:text-gray-100'
+              )}
+            >
+              {todo.todo}
+            </p>
 
-        {/* Status badge */}
-        <span
-          className={cn(
-            'hidden shrink-0 rounded-full px-2.5 py-1 text-xs font-medium transition-all duration-200 sm:block',
-            todo.completed ? 'bg-green-50 text-green-600' : 'bg-amber-50 text-amber-600'
+            {/* Status badge */}
+            <span
+              className={cn(
+                'w-20 shrink-0 rounded-md px-2 py-0.5 text-center text-xs font-medium',
+                todo.completed
+                  ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400'
+                  : 'bg-orange-50 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300'
+              )}
+            >
+              {todo.completed ? 'Completada' : 'Pendiente'}
+            </span>
+          </div>
+
+          {todo.isLocal && (
+            <span className="mt-0.5 inline-block rounded-full bg-orange-50 px-2 py-0.5 text-xs text-orange-600 dark:bg-orange-900/20 dark:text-orange-400">
+              Tu
+            </span>
           )}
-        >
-          {todo.completed ? 'Completada' : 'Pendiente'}
-        </span>
+        </div>
 
         {/* Delete button */}
         <Button
@@ -100,9 +107,9 @@ export function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
           onClick={() => setShowConfirm(true)}
           aria-label="Eliminar tarea"
           disabled={isDeleting}
-          className="shrink-0 opacity-0 transition-opacity group-hover:opacity-100"
+          className="shrink-0 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100"
         >
-          <Trash2 className="h-4 w-4 text-red-400" />
+          <Trash2 className="h-4 w-4 text-red-400 dark:text-red-500" />
         </Button>
       </div>
 

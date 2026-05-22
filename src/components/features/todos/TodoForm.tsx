@@ -49,7 +49,7 @@ export function TodoForm({ onAdd }: TodoFormProps) {
   };
 
   return (
-    <div className="border-surface-100 bg-surface-0 rounded-xl border p-4 shadow-sm">
+    <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900">
       <form onSubmit={handleSubmit} className="flex gap-3">
         <input
           type="text"
@@ -58,24 +58,26 @@ export function TodoForm({ onAdd }: TodoFormProps) {
           placeholder="Nueva tarea…"
           disabled={isSubmitting}
           aria-label="Descripción de la nueva tarea"
-          className="border-surface-200 bg-surface-50 text-surface-800 focus:border-brand-500 focus:ring-brand-500/20 h-10 flex-1 rounded-lg border px-3 text-sm placeholder-gray-400 transition-all focus:ring-2 focus:outline-none disabled:opacity-50"
+          className="h-10 flex-1 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder-gray-400 transition-all focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 focus:outline-none disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
         />
         <Button
           type="submit"
           disabled={!text.trim() || isSubmitting}
           size="md"
           aria-label="Agregar tarea"
+          className="bg-orange-500 text-white hover:bg-orange-600"
         >
           <PlusCircle className="h-4 w-4" />
           <span className="hidden sm:inline">Agregar</span>
         </Button>
       </form>
 
-      {/* Feedback message */}
       {feedback !== 'idle' && (
         <p
           className={`animate-fade-in mt-2 text-xs font-medium ${
-            feedback === 'success' ? 'text-green-600' : 'text-red-500'
+            feedback === 'success'
+              ? 'text-green-600 dark:text-green-400'
+              : 'text-red-500 dark:text-red-400'
           }`}
         >
           {FEEDBACK_MESSAGES[feedback]}
