@@ -68,37 +68,38 @@ export function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
 
         {/* Content */}
         <div className="min-w-0 flex-1">
-          <div className="flex items-center justify-between gap-2">
-            <p
-              className={cn(
-                'wrap-break-words min-w-0 text-sm leading-snug font-medium transition-all duration-200',
-                todo.completed
-                  ? 'text-gray-400 line-through dark:text-gray-500'
-                  : 'text-gray-900 dark:text-gray-100'
-              )}
-            >
-              {todo.todo}
-            </p>
+  <div className="flex items-center justify-between gap-5">
+    <div className="min-w-0 flex-1">
+      <p
+        className={cn(
+          'break-words min-w-0 text-sm leading-snug font-medium transition-all duration-200',
+          todo.completed
+            ? 'text-gray-400 line-through dark:text-gray-500'
+            : 'text-gray-900 dark:text-gray-100'
+        )}
+      >
+        {todo.todo}
+      </p>
+      {todo.isLocal && (
+        <span className="mt-1 inline-block rounded-full bg-orange-50 px-2 py-0.5 text-xs text-orange-600 dark:bg-orange-900/20 dark:text-orange-400">
+          Tu
+        </span>
+      )}
+    </div>
 
-            {/* Status badge */}
-            <span
-              className={cn(
-                'w-20 shrink-0 rounded-md px-2 py-0.5 text-center text-xs font-medium',
-                todo.completed
-                  ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400'
-                  : 'bg-orange-50 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300'
-              )}
-            >
-              {todo.completed ? 'Completada' : 'Pendiente'}
-            </span>
-          </div>
-
-          {todo.isLocal && (
-            <span className="mt-0.5 inline-block rounded-full bg-orange-50 px-2 py-0.5 text-xs text-orange-600 dark:bg-orange-900/20 dark:text-orange-400">
-              Tu
-            </span>
-          )}
-        </div>
+    {/* Status badge */}
+    <span
+      className={cn(
+        'w-20 shrink-0 self-center rounded-md px-2 py-0.5 text-center text-xs font-medium',
+        todo.completed
+          ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400'
+          : 'bg-orange-50 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300'
+      )}
+    >
+      {todo.completed ? 'Completada' : 'Pendiente'}
+    </span>
+  </div>
+</div>
 
         {/* Delete button */}
         <Button
