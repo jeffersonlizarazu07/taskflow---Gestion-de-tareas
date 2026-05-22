@@ -10,14 +10,14 @@ export const ModeButton = ({ onClick, isDark, className }: ModeButtonProps) => {
   return (
     <button
       className={cn(
-        'bg-surface-100 hover:bg-surface-200 focus:ring-brand-500 rounded-md p-2 focus:ring-2 focus:ring-offset-2 focus:outline-none',
+        'hover:bg-surface-200 focus:ring-brand-500 dark: rounded-md p-2 text-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none dark:bg-gray-800 dark:text-gray-200 hover:dark:bg-gray-600',
         className
       )}
       onClick={onClick}
       aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
     >
       <svg
-        className="text-surface-800 ml-auto h-5 w-5"
+        className="text-surface-800 dark:text-surface-200 ml-auto h-5 w-5"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
